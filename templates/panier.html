@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Votre Panier | L'Atelier des Lames</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header style="border-bottom: 1px solid #333;">
+        <div class="logo">L'ATELIER DES LAMES</div>
+        <nav>
+            <ul>
+                <li><a href="/" style="color: white; text-decoration: none;">Accueil</a></li>
+                <li><a href="/#collection" style="color: white; text-decoration: none;">Collection</a></li>
+                <li><a href="/savoir-faire" style="color: white; text-decoration: none;">Savoir-faire</a></li>
+                <li style="position: relative;">
+                    <a href="/panier" style="color: #cda434; text-decoration: none; font-weight: bold;">Panier</a>
+                    <div id="compteur-panier" class="compteur-panier-badge">0</div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="hero" style="height: auto; min-height: 80vh; padding-top: 80px; justify-content: flex-start;">
+            <h1 style="color: #cda434; margin-bottom: 40px;">Votre Commande</h1>
+
+            <div id="contenu-panier" style="background-color: #1a1a1a; padding: 30px; border-radius: 5px; width: 100%; max-width: 600px; margin-bottom: 20px; text-align: left; border: 1px solid #333;">
+                </div>
+
+            <div style="width: 100%; max-width: 600px; text-align: right; margin-bottom: 40px;">
+                <p style="color: #888; font-size: 14px; margin-bottom: 5px;">Sous-total (hors livraison) : <span id="total-panier">0</span> €</p>
+                <h2 style="color: white; font-size: 24px; margin-top: 5px;">À régler à la prochaine étape</h2>
+            </div>
+
+            <div id="zone-formulaire" style="display: none; width: 100%; max-width: 600px; background-color: #0a0a0a; padding: 30px; border-radius: 5px; border-top: 3px solid #cda434;">
+                <h3 style="color: white; margin-bottom: 20px; text-align: left;">Détails de livraison</h3>
+                
+                <form action="/commande" method="POST" id="form-paiement" style="display: flex; flex-direction: column; gap: 15px;">
+                    <input type="hidden" name="panier_secret" id="panier_secret">
+                    
+                    <h4 style="color: #cda434; margin: 10px 0 0 0;">👤 Informations Personnelles</h4>
+                    <input type="email" name="email" placeholder="Adresse E-mail (pour le suivi)" required style="padding: 12px; background-color: #1a1a1a; color: white; border: 1px solid #333; border-radius: 3px;">
+                    
+                    <div style="display: flex; gap: 10px;">
+                        <input type="text" name="prenom" placeholder="Prénom" required style="flex: 1; padding: 12px; background-color: #1a1a1a; color: white; border: 1px solid #333; border-radius: 3px;">
+                        <input type="text" name="nom" placeholder="Nom" required style="flex: 1; padding: 12px; background-color: #1a1a1a; color: white; border: 1px solid #333; border-radius: 3px;">
+                    </div>
+                    
+                    <label style="color: #888; font-size: 12px; margin-bottom: -10px;">Date de naissance :</label>
+                    <input type="date" name="anniversaire" required style="padding: 12px; background-color: #1a1a1a; color: white; border: 1px solid #333; border-radius: 3px;">
+                    
+                    <h4 style="color: #cda434; margin: 10px 0 0 0;">📍 Destination</h4>
+                    
+                    <select name="pays" required style="padding: 12px; background-color: #1a1a1a; color: white; border: 1px solid #333; border-radius: 3px; font-size: 16px;">
+                        <option value="France">France (+10€ Frais de port)</option>
+                        <option value="Belgique">Belgique (+25€ Frais de port)</option>
+                        <option value="Suisse">Suisse (+25€ Frais de port)</option>
+                        <option value="Canada">Canada (+25€ Frais de port)</option>
+                        <option value="International">Autre (International) (+25€ Frais de port)</option>
+                    </select>
+
+                    <input type="text" name="adresse" placeholder="Adresse (N° et rue)" required style="padding: 12px; background-color: #1a1a1a; color: white; border: 1px solid #333; border-radius: 3px;">
+                    <input type="text" name="complement" placeholder="Complément (Appartement...)" style="padding: 12px; background-color: #1a1a1a; color: white; border: 1px solid #333; border-radius: 3px;">
+                    
+                    <div style="display: flex; gap: 10px;">
+                        <input type="text" name="code_postal" placeholder="Code Postal" required style="flex: 1; padding: 12px; background-color: #1a1a1a; color: white; border: 1px solid #333; border-radius: 3px;">
+                        <input type="text" name="ville" placeholder="Ville" required style="flex: 2; padding: 12px; background-color: #1a1a1a; color: white; border: 1px solid #333; border-radius: 3px;">
+                    </div>
+                    
+                    <button type="submit" class="bouton-premium" style="margin-top: 20px;">Valider ma commande</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function chargerPanier() {
+            let panier = JSON.parse(localStorage.getItem("monPanier")) || [];
+            let conteneur = document.getElementById("contenu-panier");
+            let totalSpan = document.getElementById("total-panier");
+            let champSecret = document.getElementById("panier_secret");
+            let zoneForm = document.getElementById("zone-formulaire");
+
+            conteneur.innerHTML = "";
+            let total = 0;
+
+            if (panier.length === 0) {
+                conteneur.innerHTML = "<p style='color: #888; text-align: center; font-style: italic; margin: 0;'>Votre panier est tristement vide.</p>";
+                totalSpan.textContent = "0";
+                zoneForm.style.display = "none";
+            } else {
+                panier.forEach(function(article, index) {
+                    let quantite = article.quantite || 1;
+                    let sousTotal = parseInt(article.prix) * quantite;
+                    total += sousTotal;
+
+                    conteneur.innerHTML += `
+                        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333; padding: 15px 0; ${index === panier.length - 1 ? 'border-bottom: none;' : ''}">
+                            <div>
+                                <span style="color: white; font-size: 18px;">🗡️ ${article.nom}</span>
+                                <div style="margin-top: 8px; display: flex; align-items: center; gap: 10px;">
+                                    <button onclick="diminuerArticle(${index})" style="background: none; border: 1px solid #444; color: #cda434; cursor: pointer; padding: 2px 6px; border-radius: 3px;">−</button>
+                                    <span style="color: #888; min-width: 30px; text-align: center;">${quantite}</span>
+                                    <button onclick="augmenterArticle(${index})" style="background: none; border: 1px solid #444; color: #cda434; cursor: pointer; padding: 2px 6px; border-radius: 3px;">+</button>
+                                </div>
+                            </div>
+                            <div style="text-align: right;">
+                                <div style="color: #ccc; font-weight: bold; margin-bottom: 8px;">${article.prix}€ × ${quantite} = <span style="color: #cda434;">${sousTotal}€</span></div>
+                                <button onclick="supprimerArticle(${index})" style="background: none; border: none; color: #e74c3c; cursor: pointer; font-size: 16px;" title="Retirer du panier">❌ Retirer</button>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                totalSpan.textContent = total;
+                champSecret.value = JSON.stringify(panier);
+                zoneForm.style.display = "block";
+            }
+        }
+
+        function supprimerArticle(index) {
+            if (confirm("Êtes-vous sûr de vouloir retirer cet article ?")) {
+                let panier = JSON.parse(localStorage.getItem("monPanier")) || [];
+                panier.splice(index, 1);
+                localStorage.setItem("monPanier", JSON.stringify(panier));
+                chargerPanier();
+            }
+        }
+
+        function augmenterArticle(index) {
+            let panier = JSON.parse(localStorage.getItem("monPanier")) || [];
+            if (panier[index]) {
+                panier[index].quantite = (panier[index].quantite || 1) + 1;
+                localStorage.setItem("monPanier", JSON.stringify(panier));
+                chargerPanier();
+            }
+        }
+
+        function diminuerArticle(index) {
+            let panier = JSON.parse(localStorage.getItem("monPanier")) || [];
+            if (panier[index] && (panier[index].quantite || 1) > 1) {
+                panier[index].quantite = (panier[index].quantite || 1) - 1;
+                localStorage.setItem("monPanier", JSON.stringify(panier));
+                chargerPanier();
+            }
+        }
+
+        document.getElementById("form-paiement").addEventListener("submit", function() {
+            localStorage.removeItem("monPanier");
+        });
+
+        chargerPanier();
+        mettreAJourCompteur();
+    </script>
+
+    <footer>
+        <div class="footer-info">
+            <div>
+                <strong>L'ATELIER DES LAMES</strong>
+                <p>Coutellerie Artisanale de Luxe</p>
+            </div>
+            <div>
+                <strong>MAÎTRE ARTISAN</strong>
+                <p>Raphaël Leveque</p>
+            </div>
+            <div>
+                <strong>ADRESSE</strong>
+                <p>118 avenue de la République<br>La Madeleine</p>
+            </div>
+        </div>
+
+        <p style="margin-top: 30px; border-top: 1px solid #f0f0f0; padding-top: 20px;">
+            <a href="/">Accueil</a> |
+            <a href="/savoir-faire">Savoir-faire</a> |
+            <a href="mailto:contact@atelierdelames.fr">Contact</a>
+        </p>
+        <p style="font-size: 12px; color: #bbb; margin-top: 15px;">&copy; 2026 L'Atelier des Lames - Tous droits réservés</p>
+    </footer>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

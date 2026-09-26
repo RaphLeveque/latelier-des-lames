@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | L'Atelier des Lames</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .contact-container {
+            display: flex;
+            gap: 80px;
+            padding: 80px 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+            align-items: flex-start;
+        }
+        .contact-info {
+            flex: 1;
+        }
+        .contact-form {
+            flex: 1;
+        }
+        .contact-info h2 {
+            font-size: 28px;
+            color: #000;
+            margin-bottom: 30px;
+            letter-spacing: 1px;
+        }
+        .info-block {
+            margin-bottom: 40px;
+        }
+        .info-block strong {
+            display: block;
+            color: #cda434;
+            margin-bottom: 8px;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .info-block p {
+            color: #666;
+            font-size: 16px;
+            line-height: 1.8;
+        }
+        .form-group {
+            margin-bottom: 25px;
+        }
+        .form-group label {
+            display: block;
+            color: #000;
+            margin-bottom: 8px;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 400;
+        }
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            background-color: #fafafa;
+            border: 1px solid #e0e0e0;
+            border-radius: 0;
+            font-family: 'Garamond', serif;
+            font-size: 14px;
+            color: #333;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            background-color: #ffffff;
+            border-color: #cda434;
+            box-shadow: 0 0 15px rgba(205, 164, 52, 0.2);
+        }
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+        @media (max-width: 768px) {
+            .contact-container {
+                flex-direction: column;
+                gap: 40px;
+                padding: 40px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">L'ATELIER DES LAMES</div>
+        <nav>
+            <ul>
+                <li><a href="/" style="text-decoration: none;">Accueil</a></li>
+                <li><a href="/galerie" style="text-decoration: none;">Galerie</a></li>
+                <li><a href="/savoir-faire" style="text-decoration: none;">Savoir-faire</a></li>
+                <li><a href="/a-propos" style="text-decoration: none;">À Propos</a></li>
+                <li><a href="/contact" style="text-decoration: none;">Contact</a></li>
+                <li style="position: relative;">
+                    <a href="/panier" style="text-decoration: none;">Panier</a>
+                    <div id="compteur-panier" class="compteur-panier-badge">0</div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="hero" style="height: 50vh; padding-top: 50px;">
+            <h1 style="font-size: 50px; color: #000;">CONTACT</h1>
+            <p style="font-size: 16px; color: #999;">Nous serons heureux de vous entendre</p>
+        </div>
+
+        <div class="contact-container">
+            <div class="contact-info">
+                <h2>Coordonnées</h2>
+
+                <div class="info-block">
+                    <strong>ADRESSE</strong>
+                    <p>118 avenue de la République<br>59110 La Madeleine<br>France</p>
+                </div>
+
+                <div class="info-block">
+                    <strong>TÉLÉPHONE</strong>
+                    <p><a href="tel:+33123456789" style="color: #666; text-decoration: none;">+33 (0) 1 23 45 67 89</a></p>
+                </div>
+
+                <div class="info-block">
+                    <strong>EMAIL</strong>
+                    <p><a href="mailto:raphael@atelierdelames.fr" style="color: #cda434; text-decoration: none;">raphael@atelierdelames.fr</a></p>
+                </div>
+
+                <div class="info-block">
+                    <strong>HORAIRES</strong>
+                    <p>Lundi - Vendredi : 10h00 - 18h00<br>
+                    Samedi : 10h00 - 17h00<br>
+                    Dimanche : Fermé<br>
+                    Rendez-vous possibles sur demande</p>
+                </div>
+            </div>
+
+            <div class="contact-form">
+                <h2>Envoyez-nous un message</h2>
+                <form method="POST" action="/contact" style="margin-top: 30px;">
+                    <div class="form-group">
+                        <label for="nom">Nom</label>
+                        <input type="text" id="nom" name="nom" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="sujet">Sujet</label>
+                        <input type="text" id="sujet" name="sujet" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" required></textarea>
+                    </div>
+
+                    <button type="submit" class="bouton-premium">Envoyer le Message</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-info">
+            <div>
+                <strong>L'ATELIER DES LAMES</strong>
+                <p>Coutellerie Artisanale de Luxe</p>
+            </div>
+            <div>
+                <strong>MAÎTRE ARTISAN</strong>
+                <p>Raphaël Leveque</p>
+            </div>
+            <div>
+                <strong>ADRESSE</strong>
+                <p>118 avenue de la République<br>La Madeleine</p>
+            </div>
+        </div>
+
+        <p style="margin-top: 30px; border-top: 1px solid #f0f0f0; padding-top: 20px;">
+            <a href="/">Accueil</a> |
+            <a href="/galerie">Galerie</a> |
+            <a href="/savoir-faire">Savoir-faire</a> |
+            <a href="mailto:contact@atelierdelames.fr">Contact</a>
+        </p>
+        <p style="font-size: 12px; color: #bbb; margin-top: 15px;">&copy; 2026 L'Atelier des Lames - Tous droits réservés</p>
+    </footer>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

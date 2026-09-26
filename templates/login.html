@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Connexion Sécurisée | L'Atelier des Lames</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div style="display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #121212;">
+        
+        <div style="background-color: #1a1a1a; padding: 40px; border-radius: 8px; border-top: 4px solid #cda434; width: 100%; max-width: 400px; text-align: center; box-shadow: 0px 10px 30px rgba(0,0,0,0.8);">
+            
+            <h2 style="color: #cda434; letter-spacing: 2px; margin-bottom: 10px;">L'ATELIER DES LAMES</h2>
+            <p style="color: #888; margin-bottom: 30px; font-size: 14px; text-transform: uppercase;">Zone d'Administration Restreinte</p>
+            
+            {% if message_erreur %}
+                <p style="color: #e74c3c; background-color: rgba(231, 76, 60, 0.1); padding: 10px; border-radius: 4px; margin-bottom: 20px;">{{ message_erreur }}</p>
+            {% endif %}
+
+            <form action="/login" method="POST" style="display: flex; flex-direction: column; gap: 20px;">
+                <input type="password" name="mdp" placeholder="Mot de passe" required style="padding: 15px; background-color: #0a0a0a; color: white; border: 1px solid #333; border-radius: 4px; font-size: 16px; text-align: center; letter-spacing: 3px;">
+                
+                <button type="submit" class="bouton-premium" style="width: 100%;">Déverrouiller</button>
+            </form>
+            
+            <a href="/" style="display: block; margin-top: 20px; color: #666; text-decoration: none; font-size: 14px;">Retour à la boutique publique</a>
+            
+        </div>
+    </div>
+</body>
+</html>

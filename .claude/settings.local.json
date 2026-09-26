@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pip install *)",
+      "Bash(python3 -m pip install -q -r requirements.txt)",
+      "Bash(python3 app.py)",
+      "Bash(curl -s http://localhost:5001/)",
+      "Bash(pkill -f \"python3 app.py\")",
+      "Bash(cp \"/private/tmp/claude-501/-Users-raphaelleveque-Desktop-vente-sitz/eb3cdbb6-9a86-40c6-b168-2ba718d0012e/images/3.png\" \"/Users/raphaelleveque/Desktop/vente sitz/static/couteau_damas.png\")",
+      "Bash(cp \"/private/tmp/claude-501/-Users-raphaelleveque-Desktop-vente-sitz/eb3cdbb6-9a86-40c6-b168-2ba718d0012e/images/4.png\" \"/Users/raphaelleveque/Desktop/vente sitz/static/couteau_brut.png\")",
+      "Bash(cp \"/private/tmp/claude-501/-Users-raphaelleveque-Desktop-vente-sitz/eb3cdbb6-9a86-40c6-b168-2ba718d0012e/images/5.webp\" \"/Users/raphaelleveque/Desktop/vente sitz/static/couteau_classique.webp\")",
+      "Bash(cp \"/private/tmp/claude-501/-Users-raphaelleveque-Desktop-vente-sitz/eb3cdbb6-9a86-40c6-b168-2ba718d0012e/images/6.webp\" \"/Users/raphaelleveque/Desktop/vente sitz/static/couteau_epee.webp\")",
+      "Bash(git init *)",
+      "Bash(git config *)",
+      "Bash(git add *)",
+      "Bash(git commit -m 'Initial commit: L'\\\\''Atelier des Lames luxury knife store *)"
+    ]
+  }
+}

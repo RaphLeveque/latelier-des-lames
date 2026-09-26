@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Non Trouvée | L'Atelier des Lames</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <div class="logo">L'ATELIER DES LAMES</div>
+        <nav>
+            <ul>
+                <li><a href="/" style="color: #cda434; text-decoration: none;">Accueil</a></li>
+                <li><a href="/#collection" style="color: #333; text-decoration: none;">Collection</a></li>
+                <li><a href="/savoir-faire" style="color: #333; text-decoration: none;">Savoir-faire</a></li>
+                <li><a href="/panier" style="color: #333; text-decoration: none;">Panier</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="hero erreur-page" style="height: auto; min-height: 70vh;">
+            <h1>404</h1>
+            <p style="font-size: 18px; margin-bottom: 15px;">Page Non Trouvée</p>
+            <p style="font-size: 14px; color: #999; margin-bottom: 40px; max-width: 500px;">
+                Cette lame que vous cherchiez n'existe pas dans notre atelier. Revenez à notre collection pour trouver votre couteau idéal.
+            </p>
+            <a href="/">
+                <button class="bouton-premium">Retour à la Collection</button>
+            </a>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-info">
+            <div>
+                <strong>L'ATELIER DES LAMES</strong>
+                <p>Coutellerie Artisanale de Luxe</p>
+            </div>
+            <div>
+                <strong>MAÎTRE ARTISAN</strong>
+                <p>Raphaël Leveque</p>
+            </div>
+            <div>
+                <strong>ADRESSE</strong>
+                <p>118 avenue de la République<br>La Madeleine</p>
+            </div>
+        </div>
+
+        <p style="margin-top: 30px; border-top: 1px solid #f0f0f0; padding-top: 20px;">
+            <a href="/">Accueil</a> |
+            <a href="/savoir-faire">Savoir-faire</a> |
+            <a href="mailto:contact@atelierdelames.fr">Contact</a>
+        </p>
+        <p style="font-size: 12px; color: #bbb; margin-top: 15px;">&copy; 2026 L'Atelier des Lames - Tous droits réservés</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8">
+	<title>Commande Validée | L'Atelier des Lames</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+	<header>
+		<div class="logo">L'ATELIER DES LAMES</div>
+		<nav>
+			<ul>
+				<li><a href="/" style="color: white; text-decoration: none;">Retour à la boutique</a></li>
+				<li style="position: relative;">
+					<a href="/panier" style="color: white; text-decoration: none;">Panier</a>
+					<div id="compteur-panier" class="compteur-panier-badge">0</div>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+	<main>
+		<div class="hero" style="height: 70vh;">
+			<h1 style="color: #cda434;">Merci, {{ prenom }} !</h1>
+			<p style="font-size: 24px;">Votre commande a été validée avec succès.</p>
+			<p style="color: #888; margin-bottom: 40px;">Nos maîtres forgerons préparent vos couteaux pour l'expédition.</p>
+            
+			<a href="/">
+				<button class="bouton-premium" onclick="localStorage.removeItem('monPanier')">Nouvelle commande</button>
+			</a>
+		</div>
+	</main>
+
+	<footer>
+		<div class="footer-info">
+			<div>
+				<strong>L'ATELIER DES LAMES</strong>
+				<p>Coutellerie Artisanale de Luxe</p>
+			</div>
+			<div>
+				<strong>MAÎTRE ARTISAN</strong>
+				<p>Raphaël Leveque</p>
+			</div>
+			<div>
+				<strong>ADRESSE</strong>
+				<p>118 avenue de la République<br>La Madeleine</p>
+			</div>
+		</div>
+
+		<p style="margin-top: 30px; border-top: 1px solid #f0f0f0; padding-top: 20px;">
+			<a href="/">Accueil</a> |
+			<a href="/savoir-faire">Savoir-faire</a> |
+			<a href="mailto:contact@atelierdelames.fr">Contact</a>
+		</p>
+		<p style="font-size: 12px; color: #bbb; margin-top: 15px;">&copy; 2026 L'Atelier des Lames - Tous droits réservés</p>
+	</footer>
+
+	<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

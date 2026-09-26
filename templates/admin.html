@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Espace Patron | L'Atelier des Lames</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header style="border-bottom: 1px solid #cda434;">
+        <div class="logo" style="color: #cda434;">ESPACE ADMINISTRATION</div>
+        <nav>
+            <ul style="display: flex; list-style: none; margin: 0; padding: 0;">
+                <li><a href="/" style="color: white; text-decoration: none;">Retour au site</a></li>
+                <li><a href="/logout" style="color: #e74c3c; text-decoration: none; font-weight: bold; margin-left: 20px;">Déconnexion</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="hero" style="height: auto; min-height: 80vh; justify-content: flex-start; padding-top: 80px;">
+            <h1>Tableau de Bord</h1>
+
+            {% if request.args.get('succes') %}
+                <div style="background-color: #1b5e20; color: white; padding: 15px; border-radius: 5px; margin-bottom: 20px; width: 100%; max-width: 900px;">
+                    ✅ {{ request.args.get('succes') }}
+                </div>
+            {% endif %}
+
+            {% if request.args.get('erreur') %}
+                <div style="background-color: #e74c3c; color: white; padding: 15px; border-radius: 5px; margin-bottom: 20px; width: 100%; max-width: 900px;">
+                    ❌ {{ request.args.get('erreur') }}
+                </div>
+            {% endif %}
+            
+            <div style="background-color: #1a1a1a; padding: 30px; border: 1px solid #333; border-radius: 5px; margin-bottom: 40px; width: 100%; max-width: 900px; text-align: left;">
+                <h2 style="color: #cda434; margin-bottom: 20px;">➕ Ajouter un Nouveau Couteau</h2>
+                <form action="/admin/ajouter_couteau" method="POST" enctype="multipart/form-data" style="display: flex; flex-direction: column; gap: 15px;">
+                    <input type="text" name="nom" placeholder="Nom du couteau" required style="padding: 12px; background-color: #0a0a0a; color: white; border: 1px solid #333; border-radius: 3px;">
+                    <textarea name="description" placeholder="Description détaillée" required rows="3" style="padding: 12px; background-color: #0a0a0a; color: white; border: 1px solid #333; border-radius: 3px; resize: vertical;"></textarea>
+                    <input type="number" name="prix" placeholder="Prix en €" required min="1" style="padding: 12px; background-color: #0a0a0a; color: white; border: 1px solid #333; border-radius: 3px;">
+                    <div style="display: flex; gap: 10px; align-items: center;">
+                        <label style="color: #888;">Photo du couteau :</label>
+                        <input type="file" name="photo" accept="image/*" style="padding: 8px; background-color: #0a0a0a; color: #888; border: 1px solid #333; border-radius: 3px; flex: 1;">
+                    </div>
+                    <button type="submit" class="bouton-premium" style="align-self: flex-start;">Ajouter le couteau</button>
+                </form>
+            </div>
+
+            <div style="display: flex; gap: 20px; width: 100%; max-width: 900px; margin-top: 20px; margin-bottom: 40px; flex-wrap: wrap;">
+                <div style="flex: 1; min-width: 200px; background-color: #1a1a1a; padding: 20px; border-radius: 5px; border-top: 3px solid #cda434; text-align: center;">
+                    <h3 style="color: #888; font-size: 14px; text-transform: uppercase;">CA Global (TTC)</h3>
+                    <p style="font-size: 28px; color: white; font-weight: bold;">{{ total_gagne }} <span style="color: #cda434;">€</span></p>
+                </div>
+                <div style="flex: 1; min-width: 200px; background-color: #1a1a1a; padding: 20px; border-radius: 5px; border-top: 3px solid #3498db; text-align: center;">
+                    <h3 style="color: #888; font-size: 14px; text-transform: uppercase;">TVA (20%)</h3>
+                    <p style="font-size: 28px; color: #3498db; font-weight: bold;">{{ tva_globale }} <span style="color: #3498db;">€</span></p>
+                </div>
+                <div style="flex: 1; min-width: 200px; background-color: #1a1a1a; padding: 20px; border-radius: 5px; border-top: 3px solid #cda434; text-align: center;">
+                    <h3 style="color: #888; font-size: 14px; text-transform: uppercase;">Commandes</h3>
+                    <p style="font-size: 28px; color: white; font-weight: bold;">{{ commandes|length }}</p>
+                </div>
+            </div>
+
+            <div style="background-color: #1a1a1a; padding: 30px; border: 1px solid #333; border-radius: 5px; margin-bottom: 40px; width: 100%; max-width: 900px; text-align: left;">
+                <h2 style="color: #cda434; margin-bottom: 20px;">👥 Fichier Clients (CRM)</h2>
+                {% if clients|length == 0 %}
+                    <p style="color: #888; font-style: italic;">Aucun client.</p>
+                {% else %}
+                    <div style="overflow-x: auto;">
+                        <table style="width: 100%; color: white; border-collapse: collapse; text-align: left; min-width: 600px;">
+                            <tr style="border-bottom: 1px solid #333; color: #888;">
+                                <th style="padding: 10px;">Nom</th>
+                                <th style="padding: 10px;">Email</th>
+                                <th style="padding: 10px;">Anniversaire</th>
+                                <th style="padding: 10px;">Commandes</th>
+                                <th style="padding: 10px;">Dépensé</th>
+                            </tr>
+                            {% for email, donnees in clients.items() %}
+                            <tr style="border-bottom: 1px solid #222;">
+                                <td style="padding: 10px;">{{ donnees.nom }}</td>
+                                <td style="padding: 10px; color: #3498db;">{{ email }}</td>
+                                <td style="padding: 10px;">{{ donnees.anniversaire }}</td>
+                                <td style="padding: 10px;">{{ donnees.nb_commandes }}</td>
+                                <td style="padding: 10px; color: #cda434; font-weight: bold;">{{ donnees.total_depense }} €</td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div style="width: 100%; max-width: 900px; text-align: left; margin-bottom: 50px;">
+                <h2 style="color: #e65100; margin-bottom: 20px; border-bottom: 2px solid #e65100; padding-bottom: 10px;">🔥 À Préparer en urgence</h2>
+                {% set ns = namespace(a_preparer=false) %}
+                {% for commande in commandes|reverse %}
+                    {% if commande.statut != 'Expédiée' %}
+                        {% set ns.a_preparer = true %}
+                        <div style="background-color: #1a1a1a; padding: 25px; border: 1px solid #333; border-left: 5px solid #e65100; margin-bottom: 20px; border-radius: 4px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h3 style="color: white; margin: 0;">Client : <span style="color: #cda434;">{{ commande.nom }}</span></h3>
+                                <span style="background-color: #e65100; color: white; padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: bold;">⏳ En préparation</span>
+                            </div>
+                            
+                            <p style="color: #ccc; font-size: 16px; margin-bottom: 5px;">📍 Livraison : <span style="font-weight: bold; color: white;">{{ commande.adresse_complete }}</span></p>
+                            <p style="color: #888; font-size: 14px; margin-bottom: 15px;">📧 {{ commande.email }} | 🚚 Frais de port facturés : {{ commande.frais_port }} €</p>
+                            <p style="color: #666; font-size: 12px; margin-bottom: 15px;">Commande N°{{ commande.id }} — Payé TTC : <strong style="color:#cda434">{{ commande.total }} €</strong></p>
+                            
+                            <div style="background-color: #0a0a0a; padding: 15px; border-radius: 3px;">
+                                <ul style="list-style: none; padding: 0; margin: 0;">
+                                    {% for article in commande.articles %}
+                                        <li style="color: white; margin-bottom: 5px;">🗡️ {{ article.nom }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            <div style="margin-top: 20px; text-align: right;">
+                                <a href="/expedier/{{ commande.id }}">
+                                    <button class="bouton-premium" style="padding: 10px 20px; font-size: 14px; background-color: #e65100; color: white; border: none;">📦 Marquer Expédiée</button>
+                                </a>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+                {% if not ns.a_preparer %}
+                    <p style="color: #888; font-style: italic;">Aucune commande en attente. Bon repos au forgeron !</p>
+                {% endif %}
+            </div>
+
+            <div style="width: 100%; max-width: 900px; text-align: left; opacity: 0.8;">
+                <h2 style="color: #1b5e20; margin-bottom: 20px; border-bottom: 2px solid #1b5e20; padding-bottom: 10px;">🗄️ Archives (Expédiées)</h2>
+                {% set ns2 = namespace(archive=false) %}
+                {% for commande in commandes|reverse %}
+                    {% if commande.statut == 'Expédiée' %}
+                        {% set ns2.archive = true %}
+                        <div style="background-color: #111; padding: 20px; border: 1px solid #222; border-left: 5px solid #1b5e20; margin-bottom: 15px; border-radius: 4px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <h4 style="color: #888; margin: 0;">{{ commande.nom }} — {{ commande.adresse_complete }}</h4>
+                                <span style="color: #1b5e20; font-size: 12px; font-weight: bold;">✅ Expédiée</span>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+                {% if not ns2.archive %}
+                    <p style="color: #555; font-size: 14px;">Aucune archive pour le moment.</p>
+                {% endif %}
+            </div>
+
+        </div>
+    </main>
+</body>
+</html>
