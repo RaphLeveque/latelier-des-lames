@@ -56,7 +56,16 @@ nav ul li a {
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+nav ul li a:visited {
+    color: #cda434;
+}
+
 nav ul li:hover a {
+    color: #e8b923;
+    text-shadow: 0 0 10px rgba(205, 164, 52, 0.3);
+}
+
+nav ul li:hover a:visited {
     color: #e8b923;
     text-shadow: 0 0 10px rgba(205, 164, 52, 0.3);
 }
@@ -357,6 +366,191 @@ footer a:hover {
     font-weight: 300;
 }
 
+/* --- STATS SECTION --- */
+.stats-section {
+    padding: 80px 50px;
+    background-color: #ffffff;
+    border-top: 1px solid #f0f0f0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.stat-card {
+    text-align: center;
+    padding: 30px;
+    opacity: 0;
+    animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.stat-card:nth-child(1) { animation-delay: 0.1s; }
+.stat-card:nth-child(2) { animation-delay: 0.2s; }
+.stat-card:nth-child(3) { animation-delay: 0.3s; }
+.stat-card:nth-child(4) { animation-delay: 0.4s; }
+
+.stat-number {
+    font-size: 48px;
+    color: #cda434;
+    font-weight: bold;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+
+.stat-label {
+    font-size: 14px;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 300;
+}
+
+/* --- AVIS CLIENTS --- */
+.avis-clients {
+    padding: 100px 50px;
+    background-color: #fafafa;
+    text-align: center;
+}
+
+.avis-clients h2 {
+    font-size: 42px;
+    color: #000;
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+}
+
+.grille-avis {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    margin-top: 50px;
+}
+
+.carte-avis {
+    background-color: #ffffff;
+    padding: 40px;
+    border: 1px solid #e8e8e8;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0;
+    animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.carte-avis:nth-child(1) { animation-delay: 0.1s; }
+.carte-avis:nth-child(2) { animation-delay: 0.2s; }
+.carte-avis:nth-child(3) { animation-delay: 0.3s; }
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.carte-avis:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.stars {
+    font-size: 24px;
+    color: #cda434;
+    margin-bottom: 20px;
+    letter-spacing: 4px;
+}
+
+.avis-texte {
+    font-size: 15px;
+    color: #666;
+    line-height: 1.8;
+    margin-bottom: 20px;
+    font-style: italic;
+}
+
+.avis-auteur {
+    font-size: 13px;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-style: normal;
+    font-weight: 600;
+}
+
+/* --- NEWSLETTER --- */
+.newsletter-container {
+    background-color: #fafafa;
+    padding: 60px 50px;
+    margin: 60px 0;
+    text-align: center;
+    border: 1px solid #f0f0f0;
+    border-radius: 2px;
+}
+
+.newsletter-container h3 {
+    font-size: 24px;
+    color: #000;
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+}
+
+.newsletter-container p {
+    color: #999;
+    margin-bottom: 25px;
+    font-size: 14px;
+}
+
+.newsletter-form {
+    display: flex;
+    gap: 10px;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.newsletter-form input {
+    flex: 1;
+    padding: 14px 20px;
+    border: 1px solid #e0e0e0;
+    background-color: #ffffff;
+    font-family: 'Garamond', serif;
+    font-size: 14px;
+    color: #333;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.newsletter-form input:focus {
+    outline: none;
+    border-color: #cda434;
+    box-shadow: 0 0 15px rgba(205, 164, 52, 0.2);
+}
+
+.newsletter-form button {
+    padding: 14px 30px;
+    background-color: #cda434;
+    color: #000;
+    border: none;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.newsletter-form button:hover {
+    background-color: #e8b923;
+    transform: translateY(-2px);
+}
+
 /* --- RESPONSIVE --- */
 @media screen and (max-width: 768px) {
     header {
@@ -409,5 +603,22 @@ footer a:hover {
     .footer-info {
         flex-direction: column;
         gap: 20px;
+    }
+
+    .avis-clients {
+        padding: 60px 20px;
+    }
+
+    .avis-clients h2 {
+        font-size: 28px;
+    }
+
+    .grille-avis {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .carte-avis {
+        padding: 30px 20px;
     }
 }

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ | L'Atelier des Lames</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .faq-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 80px 50px;
+        }
+        .faq-item {
+            margin-bottom: 30px;
+            padding: 25px;
+            background-color: #fafafa;
+            border-left: 4px solid #cda434;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+        .faq-item:hover {
+            background-color: #f5f5f5;
+            transform: translateX(5px);
+        }
+        .faq-item h3 {
+            font-size: 18px;
+            color: #000;
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .faq-item .icon {
+            font-size: 20px;
+            color: #cda434;
+        }
+        .faq-item p {
+            color: #666;
+            line-height: 1.8;
+            font-size: 15px;
+            display: none;
+        }
+        .faq-item.active p {
+            display: block;
+            animation: slideDown 0.3s ease-out;
+        }
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                max-height: 0;
+            }
+            to {
+                opacity: 1;
+                max-height: 500px;
+            }
+        }
+        @media (max-width: 768px) {
+            .faq-container {
+                padding: 40px 20px;
+            }
+            .faq-item {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">L'ATELIER DES LAMES</div>
+        <nav>
+            <ul>
+                <li><a href="/" style="text-decoration: none;">Accueil</a></li>
+                <li><a href="/galerie" style="text-decoration: none;">Galerie</a></li>
+                <li><a href="/savoir-faire" style="text-decoration: none;">Savoir-faire</a></li>
+                <li><a href="/a-propos" style="text-decoration: none;">À Propos</a></li>
+                <li><a href="/contact" style="text-decoration: none;">Contact</a></li>
+                <li style="position: relative;">
+                    <a href="/panier" style="text-decoration: none;">Panier</a>
+                    <div id="compteur-panier" class="compteur-panier-badge">0</div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="hero" style="height: 50vh; padding-top: 50px;">
+            <h1 style="font-size: 50px; color: #000;">FAQ</h1>
+            <p style="font-size: 16px; color: #999;">Vos questions, nos réponses</p>
+        </div>
+
+        <div class="faq-container">
+            <div class="faq-item active">
+                <h3>
+                    Comment prendre soin de mon couteau ?
+                    <span class="icon">▼</span>
+                </h3>
+                <p>Nous recommandons de laver votre couteau à la main avec de l'eau tiède et du savon doux. Séchez-le immédiatement après le nettoyage. Évitez le lave-vaisselle qui peut endommager la lame et le manche. Rangez-le dans un bloc à couteaux ou utilisez un fourreau de protection.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>
+                    Les couteaux sont-ils aiguisés à la livraison ?
+                    <span class="icon">▼</span>
+                </h3>
+                <p>Oui, tous nos couteaux sont aiguisés professionnellement avant livraison. La lame est prête à l'emploi immédiatement. Pour un tranchage optimal, nous recommandons de faire aiguiser votre couteau annuellement par un professionnel.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>
+                    Quelle est la garantie sur les couteaux ?
+                    <span class="icon">▼</span>
+                </h3>
+                <p>Tous nos couteaux sont garantis à vie contre les défauts de fabrication. Cette garantie couvre les vices matériels et d'exécution, mais pas l'usure normale ni les dommages causés par une mauvaise utilisation ou un manque d'entretien.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>
+                    Combien de temps pour la livraison ?
+                    <span class="icon">▼</span>
+                </h3>
+                <p>Les commandes sont préparées sous 2-3 jours ouvrables. La livraison en France métropolitaine prend 5-7 jours. Pour l'international, comptez 10-15 jours. Les frais de port varient selon la destination (10€ France, 25€ international).</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>
+                    Puis-je personnaliser un couteau ?
+                    <span class="icon">▼</span>
+                </h3>
+                <p>Absolument ! Nous proposons des personnalisations sur commande : gravure du nom, création sur mesure, choix des matériaux. Contactez-nous directement pour discuter de votre projet personnalisé. Un devis vous sera proposé dans les 48h.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>
+                    Acceptez-vous les retours ?
+                    <span class="icon">▼</span>
+                </h3>
+                <p>Les retours sont acceptés sous 30 jours pour les produits non utilisés et dans leur emballage d'origine. Les frais de retour sont à votre charge. Une fois le produit reçu et inspecté, le remboursement sera effectué dans les 7 jours.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>
+                    Y a-t-il une boutique physique ?
+                    <span class="icon">▼</span>
+                </h3>
+                <p>Oui ! Vous pouvez visiter notre atelier au 118 avenue de la République à La Madeleine. Ouvert du lundi au vendredi de 10h à 18h, samedi de 10h à 17h. Rendez-vous possibles sur demande. N'hésitez pas à nous appeler pour planifier une visite.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-info">
+            <div>
+                <strong>L'ATELIER DES LAMES</strong>
+                <p>Coutellerie Artisanale de Luxe</p>
+            </div>
+            <div>
+                <strong>MAÎTRE ARTISAN</strong>
+                <p>Raphaël Leveque</p>
+            </div>
+            <div>
+                <strong>ADRESSE</strong>
+                <p>118 avenue de la République<br>La Madeleine</p>
+            </div>
+        </div>
+
+        <p style="margin-top: 30px; border-top: 1px solid #f0f0f0; padding-top: 20px;">
+            <a href="/">Accueil</a> |
+            <a href="/galerie">Galerie</a> |
+            <a href="/savoir-faire">Savoir-faire</a> |
+            <a href="mailto:contact@atelierdelames.fr">Contact</a>
+        </p>
+        <p style="font-size: 12px; color: #bbb; margin-top: 15px;">&copy; 2026 L'Atelier des Lames - Tous droits réservés</p>
+    </footer>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script>
+        document.querySelectorAll('.faq-item').forEach(item => {
+            item.addEventListener('click', () => {
+                document.querySelectorAll('.faq-item').forEach(other => {
+                    if (other !== item) other.classList.remove('active');
+                });
+                item.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+</html>

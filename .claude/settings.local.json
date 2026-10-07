@@ -13,7 +13,13 @@
       "Bash(git init *)",
       "Bash(git config *)",
       "Bash(git add *)",
-      "Bash(git commit -m 'Initial commit: L'\\\\''Atelier des Lames luxury knife store *)"
+      "Bash(git commit -m 'Initial commit: L'\\\\''Atelier des Lames luxury knife store *)",
+      "Bash(git remote *)",
+      "Bash(git branch *)",
+      "Bash(git push *)",
+      "Bash(brew install *)",
+      "Bash(ls -la ~/.ssh/id_rsa 2>/dev/null && echo \"SSH key found\" || echo \"No SSH key\")",
+      "Bash(ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519 -N \"\")"
     ]
   }
 }

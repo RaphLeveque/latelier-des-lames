@@ -81,6 +81,10 @@ def page_panier():
 def page_savoir_faire():
 	return render_template('savoir_faire.html')
 
+@app.route('/faq')
+def page_faq():
+	return render_template('faq.html')
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
 	erreur = None

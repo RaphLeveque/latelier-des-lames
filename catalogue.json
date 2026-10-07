@@ -28,6 +28,13 @@
         "image": "couteau_epee.webp"
     },
     {
+        "id": "couteau5",
+        "nom": "L'Artisan Signature",
+        "description": "\u00c9dition limit\u00e9e sign\u00e9e Rapha\u00ebl. For\u00e9e \u00e0 la main avec les meilleurs aciers su\u00e9dois. Une masterpiece pour les collectionneurs.",
+        "prix": 380,
+        "image": "couteau_damas.png"
+    },
+    {
         "id": "couteau_1790439298",
         "nom": "le premiera",
         "description": "une lame d'exception aussi forte que tranchante.",
